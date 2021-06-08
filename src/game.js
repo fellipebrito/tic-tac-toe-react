@@ -54,8 +54,8 @@ class Game extends React.Component {
                         (squares[2] === 'X' && squares[3] === 'X') ? 0 :
                             (squares[3] === 'X' && squares[8] === 'X') ? 6 :
                                 (squares[1] === 'X' && squares[8] === 'X') ? 2 :
-                                    (squares[1] === 'X' && squares[6] === 'X') ? 0 :
-                                        undefined;
+                                    (squares[1] === 'X' && squares[6] === 'X') ? 0 : undefined;
+        console.log(kassyaMove);
 
         const emptyCorners = [!squares[0], !squares[2], !squares[6], !squares[8]].filter(function (e) {
             return e === true;
@@ -72,11 +72,11 @@ class Game extends React.Component {
             console.log('takeCenter');
 
             move = 4;
-        } else if (crossWinMove) {
+        } else if (crossWinMove !== undefined) {
             console.log('blockCrossWinMove');
 
             move = crossWinMove;
-        } else if (kassyaMove) {
+        } else if (kassyaMove !== undefined) {
             console.log('blockKassyaMove');
 
             move = kassyaMove;
