@@ -43,6 +43,20 @@ class Game extends React.Component {
         const doubleWinMove = [(squares[0] === 'X'), (squares[2] === 'X'), (squares[6] === 'X'), (squares[8] === 'X')].filter(function (e) {
             return e === true;
         }).length > 1;
+        const crossWinMove = (squares[7] === 'X' && squares[5] === 'X') ? 8 :
+            (squares[1] === 'X' && squares[5] === 'X') ? 2 :
+                (squares[1] === 'X' && squares[3] === 'X') ? 0 :
+                    (squares[7] === 'X' && squares[3] === 'X') ? 6 : undefined;
+        const kassyaMove = (squares[0] === 'X' && squares[7] === 'X') ? 6 :
+            (squares[2] === 'X' && squares[7] === 'X') ? 8 :
+                (squares[0] === 'X' && squares[5] === 'X') ? 2 :
+                    (squares[5] === 'X' && squares[6] === 'X') ? 8 :
+                        (squares[2] === 'X' && squares[3] === 'X') ? 0 :
+                            (squares[3] === 'X' && squares[8] === 'X') ? 6 :
+                                (squares[1] === 'X' && squares[8] === 'X') ? 2 :
+                                    (squares[1] === 'X' && squares[6] === 'X') ? 0 :
+                                        undefined;
+
         const emptyCorners = [!squares[0], !squares[2], !squares[6], !squares[8]].filter(function (e) {
             return e === true;
         }).length;
@@ -58,6 +72,14 @@ class Game extends React.Component {
             console.log('takeCenter');
 
             move = 4;
+        } else if (crossWinMove) {
+            console.log('blockCrossWinMove');
+
+            move = crossWinMove;
+        } else if (kassyaMove) {
+            console.log('blockKassyaMove');
+
+            move = kassyaMove;
         } else if (doubleWinMove && emptyCorners > 0) {
             console.log('blockDoubleWinMove');
 
@@ -89,7 +111,7 @@ class Game extends React.Component {
 
         const moves = history.map((step, move) => {
             let difference;
-            if (move){
+            if (move) {
                 difference = step.squares.map((e, i) => e !== history[move - 1].squares[i] ? i + 1 : null).filter(x => x)[0]
             }
 
